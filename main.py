@@ -22,7 +22,7 @@ while True:
         favorites_only = False,
         latitude = user_latitude,
         longitude = user_longitude,
-        radius = 1
+        radius = 3
     )
     for item in items:
         shop = item["store"]["store_name"]
