@@ -7,22 +7,12 @@ pygame.display.set_caption("ToGoodToGo - Scrapper")
 
 # example shops list from TgtgClient
 shops = [
-    "ONUTS",
-    "GREEN CAFFE NERO RAKOWICKA (KRK)",
-    "Kawiarnia INDIVIDUAL",
-    "Delecta & Olimp Axis",
-    "Danone & Olimp Axis",
-    "Olimp Axis",
-    "PiCaffe",
-    "Costa Coffee Kraków Galeria Krakowska",
-    "GREEN CAFFE NERO GALERIA KRAKOWSKA (KRK)",
-    "North Fish Galeria Krakowska Poziom -1",
-    "Grycan",
-    "Boho Cafe",
-    "Starbucks Krakow Palac Wolodkowiczow",
-    "Carrefour Galeria Krakowska (poziom +1)",
-    "North Fish Galeria Krakowska Poziom +1",
-    "Cynamon"
+    "Shop 0",
+    "Shop 1",
+    "Shop 2",
+    "Shop 3",
+    "Shop 4",
+    "Shop 5",
 ]
 
 class Menu:
@@ -111,7 +101,7 @@ class Menu:
                             end_pos = (text.bottomright[0] + offset, text.bottomright[1] + offset))
         pygame.display.update()
 
-def runMenu():
+def runMenu(shops):
     menu = Menu(shops)
     while menu.running:
         menu.x, menu.y = pygame.mouse.get_pos()
