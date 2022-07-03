@@ -40,9 +40,15 @@ class Menu:
         # available shops list
         self.shops = shops
 
-        # pressable butons
+        # pressable buttons
         self.buttons = []
 
+        # chosen buttons
+        self.chosen = []
+
+        # cooldown
+        self.cooldown = 100
+        self.last = pygame.time.get_ticks()
 
     def draw_menu(self):
         # set color to bg of menu
@@ -73,21 +79,26 @@ class Menu:
             spacing += 50
 
         offset = 8
+
         for text in self.buttons:
+            if text not in self.chosen:
+                outline_color = (3, 232, 252)
+            else:
+                outline_color = (19, 191, 36)
             #top horizontal lines
-            pygame.draw.line(screen, color=(3, 232, 252),\
+            pygame.draw.line(screen, color = outline_color,\
                             start_pos = (text.bottomleft[0] - offset, text.topleft[1] - offset),\
                             end_pos = (text.bottomright[0] + offset, text.topleft[1] - offset))
             #bottom horizontal lines
-            pygame.draw.line(screen, color=(3, 232, 252),\
+            pygame.draw.line(screen, color = outline_color,\
                             start_pos = (text.bottomleft[0] - offset, text.bottomleft[1] + offset),\
                             end_pos = (text.bottomright[0] + offset, text.bottomleft[1] + offset))
             #left vertical lines
-            pygame.draw.line(screen, color=(3, 232, 252),\
+            pygame.draw.line(screen, color = outline_color,\
                             start_pos = (text.bottomleft[0] - offset, text.topleft[1] - offset),\
                             end_pos = (text.bottomleft[0] - offset, text.bottomleft[1] + offset))
             #right vertical lines
-            pygame.draw.line(screen, color=(3, 232, 252),\
+            pygame.draw.line(screen, color = outline_color,\
                             start_pos = (text.bottomright[0] + offset, text.topright[1] - offset),\
                             end_pos = (text.bottomright[0] + offset, text.bottomright[1] + offset))
         pygame.display.update()
@@ -105,9 +116,21 @@ while menu.running:
         if event.type == pygame.MOUSEBUTTONDOWN:
             for button in menu.buttons:
                 if menu.x > button.left and menu.x < button.right and menu.y > button.top and menu.y < button.bottom:
-                    print(shops[menu.buttons.index(button)])
+                    now = pygame.time.get_ticks()
+                    if now - menu.last >= menu.cooldown:
+                        menu.last = now
+                        if button not in menu.chosen:
+                            menu.chosen.append(button)
+                        else:
+                            menu.chosen.remove(button)
+                            
+            if menu.x > 436 and menu.x < 565 and menu.y > 932 and menu.y < 968:
+                menu.running = False
 
         try:
             menu.draw_menu()
         except:
             print("pygame.error: display Surface quit")
+
+for shop in menu.chosen:
+    print(shops[menu.buttons.index(shop)])
