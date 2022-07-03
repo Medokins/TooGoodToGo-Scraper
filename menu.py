@@ -45,6 +45,8 @@ class Menu:
 
         # chosen buttons
         self.chosen = []
+        # chosen stores names
+        self.chosen_stores = []
 
         # cooldown
         self.cooldown = 100
@@ -70,8 +72,14 @@ class Menu:
 
         font = pygame.font.SysFont('Calibri', 24)
         spacing = 120
+
         for shop in self.shops:
-            temp = font.render(shop, False, (3, 232, 252), (26,26,26))
+            if shop not in self.chosen_stores:
+                text_color = (3, 232, 252)
+            else:
+                text_color = (19, 191, 36)
+
+            temp = font.render(shop, False, text_color, (26,26,26))
             tempRect = temp.get_rect()
             tempRect.center = (WINDOW_SIZE[0] / 2, spacing)
             screen.blit(temp, tempRect)
@@ -81,10 +89,10 @@ class Menu:
         offset = 8
 
         for text in self.buttons:
-            if text not in self.chosen:
-                outline_color = (3, 232, 252)
-            else:
+            if text in self.chosen:
                 outline_color = (19, 191, 36)
+            else:
+                outline_color = (3, 232, 252)
             #top horizontal lines
             pygame.draw.line(screen, color = outline_color,\
                             start_pos = (text.bottomleft[0] - offset, text.topleft[1] - offset),\
@@ -121,16 +129,17 @@ while menu.running:
                         menu.last = now
                         if button not in menu.chosen:
                             menu.chosen.append(button)
+                            menu.chosen_stores.append(shops[menu.buttons.index(button)])
                         else:
                             menu.chosen.remove(button)
-                            
+                            menu.chosen_stores.remove(shops[menu.buttons.index(button)])
+
             if menu.x > 436 and menu.x < 565 and menu.y > 932 and menu.y < 968:
                 menu.running = False
 
         try:
             menu.draw_menu()
         except:
-            print("pygame.error: display Surface quit")
+            pass
 
-for shop in menu.chosen:
-    print(shops[menu.buttons.index(shop)])
+[print(shop) for shop in menu.chosen_stores]
