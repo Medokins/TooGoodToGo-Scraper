@@ -111,35 +111,36 @@ class Menu:
                             end_pos = (text.bottomright[0] + offset, text.bottomright[1] + offset))
         pygame.display.update()
 
-menu = Menu(shops)
-
-while menu.running:
-    menu.x, menu.y = pygame.mouse.get_pos()
-    
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            menu.running = False
-            pygame.quit()
+def runMenu():
+    menu = Menu(shops)
+    while menu.running:
+        menu.x, menu.y = pygame.mouse.get_pos()
         
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            for button in menu.buttons:
-                if menu.x > button.left and menu.x < button.right and menu.y > button.top and menu.y < button.bottom:
-                    now = pygame.time.get_ticks()
-                    if now - menu.last >= menu.cooldown:
-                        menu.last = now
-                        if button not in menu.chosen:
-                            menu.chosen.append(button)
-                            menu.chosen_stores.append(shops[menu.buttons.index(button)])
-                        else:
-                            menu.chosen.remove(button)
-                            menu.chosen_stores.remove(shops[menu.buttons.index(button)])
-
-            if menu.x > 436 and menu.x < 565 and menu.y > 932 and menu.y < 968:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
                 menu.running = False
+                pygame.quit()
+            
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                for button in menu.buttons:
+                    if menu.x > button.left and menu.x < button.right and menu.y > button.top and menu.y < button.bottom:
+                        now = pygame.time.get_ticks()
+                        if now - menu.last >= menu.cooldown:
+                            menu.last = now
+                            if button not in menu.chosen:
+                                menu.chosen.append(button)
+                                menu.chosen_stores.append(shops[menu.buttons.index(button)])
+                            else:
+                                menu.chosen.remove(button)
+                                menu.chosen_stores.remove(shops[menu.buttons.index(button)])
 
-        try:
-            menu.draw_menu()
-        except:
-            pass
+                if menu.x > 436 and menu.x < 565 and menu.y > 932 and menu.y < 968:
+                    menu.running = False
+                    pygame.quit()
 
-[print(shop) for shop in menu.chosen_stores]
+            try:
+                menu.draw_menu()
+            except:
+                pass
+            
+    return menu.chosen_stores
