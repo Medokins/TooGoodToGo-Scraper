@@ -2,6 +2,7 @@ from tgtg import TgtgClient
 from datetime import datetime
 import time
 import numpy as np
+from menu import Menu, runMenu
 
 with open('data.txt') as f:
     lines = f.readlines()
@@ -17,6 +18,8 @@ client = TgtgClient(access_token = user_access_token,
                     refresh_token = user_refresh_token,
                     user_id = user_id)
 
+favourite_stores = runMenu()
+
 while True:
     items = client.get_items(
         favorites_only = False,
@@ -29,6 +32,13 @@ while True:
         available_items = item["items_available"]
         if available_items != 0:
             now = datetime.now()
-            print(f"There are {available_items} packages at {shop} ({now})")
+            if shop in favourite_stores:
+                print(f"There are {available_items} packages at {shop} ({now}), be quick!")
+                # here will be code to notify You via email
+            else:
+                print(f"There are {available_items} packages at {shop} ({now})")
+        
+
+
 
     time.sleep(10)
