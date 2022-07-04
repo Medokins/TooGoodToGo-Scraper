@@ -2,13 +2,16 @@ from tgtg import TgtgClient
 from datetime import datetime
 import time
 import numpy as np
-from menu import Menu, runMenu
+from menu import runMenu
+from plyer import notification
 
 with open('data.txt') as f:
     lines = f.readlines()
 
 # search radius
 user_radius = 1
+# search frequency (time before checking again in seconds)
+refresh_rate = 10
 
 #[:-1] to not read in new-line character
 user_access_token = lines[0][:-1]
@@ -45,11 +48,13 @@ while True:
             now = datetime.now()
             if shop in favourite_stores:
                 print(f"There are {available_items} packages at {shop} ({now}), be quick!")
-                # here will be code to notify You via email
+                notification.notify(
+                    title = "You've got a package to save!",
+                    message = f"There is a package avaiable at {shop}",
+                    app_icon = "tgtg.ico",
+                    timeout = 5,
+                )
             else:
                 print(f"There are {available_items} packages at {shop} ({now})")
-        
 
-
-
-    time.sleep(10)
+    time.sleep(refresh_rate)
