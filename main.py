@@ -52,7 +52,7 @@ while True:
                     title = "You've got a package to save!",
                     message = f"There is a package avaiable at {shop}",
                     app_icon = "tgtg.ico",
-                    timeout = 5,
+                    timeout = 10,
                 )
             else:
                 print(f"There are {available_items} packages at {shop} ({now})")
