@@ -24,9 +24,6 @@ class Menu:
         # running state
         self.running = True
 
-        # continue button
-        self.continue_button = False
-
         # available shops list
         self.shops = shops
 
@@ -99,6 +96,7 @@ class Menu:
             pygame.draw.line(screen, color = outline_color,\
                             start_pos = (text.bottomright[0] + offset, text.topright[1] - offset),\
                             end_pos = (text.bottomright[0] + offset, text.bottomright[1] + offset))
+                            
         pygame.display.update()
 
 def runMenu(shops):
