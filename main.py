@@ -34,6 +34,19 @@ items = client.get_items(
 shops = np.unique([item["store"]["store_name"] for item in items])
 favourite_stores = runMenu(shops)
 
+# save favourites
+if len(favourite_stores) != 0:
+    favourite_stores_file = open('favtourite_stores.txt', 'w')
+    for store in favourite_stores:
+        favourite_stores_file.write(f"{store}\n")
+    favourite_stores_file.close()
+else:
+    saved_favourites = open("favtourite_stores.txt", "r")
+    favourite_stores = saved_favourites.read().splitlines()
+    saved_favourites.close()
+
+print(favourite_stores)
+
 while True:
     items = client.get_items(
         favorites_only = False,
