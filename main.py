@@ -45,8 +45,6 @@ else:
     favourite_stores = saved_favourites.read().splitlines()
     saved_favourites.close()
 
-print(favourite_stores)
-
 while True:
     items = client.get_items(
         favorites_only = False,
