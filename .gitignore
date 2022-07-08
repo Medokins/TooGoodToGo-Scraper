@@ -1,3 +1,2 @@
-data.txt
-favourite_stores.txt
-__pycache__
+settings/
+__pycache__/
