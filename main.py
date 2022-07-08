@@ -2,13 +2,14 @@ from tgtg import TgtgClient
 from datetime import datetime
 import time
 import numpy as np
+import os
 from menu import runMenu
 from plyer import notification
 
-with open('data.txt') as f:
+with open(os.path.join("settings", "data.txt")) as f:
     lines = f.readlines()
 
-# search radius
+# search radius in kilometers
 user_radius = 1
 # search frequency (time before checking again in seconds)
 refresh_rate = 10
@@ -32,16 +33,21 @@ items = client.get_items(
     )
 
 shops = np.unique([item["store"]["store_name"] for item in items])
-favourite_stores = runMenu(shops)
+
+if len(shops) != 0:
+    favourite_stores = runMenu(shops)
+else:
+    print("No shops in Your area at given radius")
+    quit()
 
 # save favourites
-if len(favourite_stores) != 0:
-    favourite_stores_file = open('favourite_stores.txt', 'w')
+if len(favourite_stores) > 1:
+    favourite_stores_file = open(os.path.join("settings", "favourite_stores.txt"), 'w')
     for store in favourite_stores:
         favourite_stores_file.write(f"{store}\n")
     favourite_stores_file.close()
 else:
-    saved_favourites = open("favourite_stores.txt", "r")
+    saved_favourites = open(os.path.join("settings", "favourite_stores.txt"), 'r')
     favourite_stores = saved_favourites.read().splitlines()
     saved_favourites.close()
 
