@@ -13,6 +13,11 @@ shops = [
     "Shop 3",
     "Shop 4",
     "Shop 5",
+    "Shop 6",
+    "Shop 7",
+    "Shop 8",
+    "Shop 9",
+    "Shop 10",
 ]
 
 class Menu:
@@ -58,20 +63,34 @@ class Menu:
         screen.blit(continue_button, continueRect)
 
         font = pygame.font.SysFont('Calibri', 24)
-        spacing = 120
+
+        if len(self.shops) <= 15:
+            x_spacing = WINDOW_SIZE[0] / 2
+        else:
+            x_spacing = WINDOW_SIZE[0] / 4
+
+        y_spacing = 120
+        counter = 0
 
         for shop in self.shops:
             if shop not in self.chosen_stores:
                 text_color = (3, 232, 252)
             else:
                 text_color = (19, 191, 36)
+        
 
             temp = font.render(shop, False, text_color, (26,26,26))
             tempRect = temp.get_rect()
-            tempRect.center = (WINDOW_SIZE[0] / 2, spacing)
+            tempRect.center = (x_spacing, y_spacing)
             screen.blit(temp, tempRect)
             self.buttons.append(tempRect)
-            spacing += 50
+            y_spacing += 50
+            counter += 1
+
+            if counter == 16:
+                y_spacing = 120
+                x_spacing = WINDOW_SIZE[0] / 4 * 3
+
 
         offset = 8
 
