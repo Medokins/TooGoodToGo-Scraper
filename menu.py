@@ -5,6 +5,11 @@ WINDOW_SIZE = (1000, 1000)
 screen = pygame.display.set_mode(WINDOW_SIZE)
 pygame.display.set_caption("ToGoodToGo - Scrapper")
 
+BG_COLOR = (25, 25, 25)
+TEXT_COLOR = (48, 127, 145)
+OUTLINE_COLOR = (48, 127, 145)
+HEADERS_COLOR = (28, 213, 255)
+
 # example shops list from TgtgClient
 shops = [
     "Shop 0",
@@ -46,13 +51,13 @@ class Menu:
 
     def draw_menu(self):
         # set color to bg of menu
-        screen.fill((26,26,26))
+        screen.fill(BG_COLOR)
 
         # set font
         font = pygame.font.SysFont('Sans', 32)
 
-        header = font.render('Choose Your favourite shops', False, (3, 232, 252), (26,26,26))
-        continue_button = font.render('Continue', False, (3, 232, 252), (26,26,26))
+        header = font.render('Choose Your favourite shops', False, HEADERS_COLOR, BG_COLOR)
+        continue_button = font.render('Continue', False, HEADERS_COLOR, BG_COLOR)
 
         headerRect = header.get_rect()
         headerRect.center = (WINDOW_SIZE[0] / 2, 50)
@@ -74,12 +79,12 @@ class Menu:
 
         for shop in self.shops:
             if shop not in self.chosen_stores:
-                text_color = (3, 232, 252)
+                text_color = TEXT_COLOR
             else:
                 text_color = (19, 191, 36)
         
 
-            temp = font.render(shop, False, text_color, (26,26,26))
+            temp = font.render(shop, False, text_color, BG_COLOR)
             tempRect = temp.get_rect()
             tempRect.center = (x_spacing, y_spacing)
             screen.blit(temp, tempRect)
@@ -98,7 +103,8 @@ class Menu:
             if text in self.chosen:
                 outline_color = (19, 191, 36)
             else:
-                outline_color = (3, 232, 252)
+                outline_color = OUTLINE_COLOR
+
             #top horizontal lines
             pygame.draw.line(screen, color = outline_color,\
                             start_pos = (text.bottomleft[0] - offset, text.topleft[1] - offset),\
