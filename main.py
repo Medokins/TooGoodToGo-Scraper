@@ -10,9 +10,11 @@ with open(os.path.join("settings", "data.txt")) as f:
     lines = f.readlines()
 
 # search radius in kilometers
-user_radius = 1
+user_radius = 5
 # search frequency (time before checking again in seconds)
 refresh_rate = 10
+# bonus option to console when package from non-favourite store is available
+notify_all = False
 
 #[:-1] to not read in new-line character
 user_access_token = lines[0][:-1]
@@ -71,7 +73,7 @@ while True:
                     app_icon = "tgtg.ico",
                     timeout = 10,
                 )
-            else:
+            elif notify_all:
                 print(f"There are {available_items} packages at {shop} ({now})")
 
     time.sleep(refresh_rate)
