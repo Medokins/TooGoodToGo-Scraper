@@ -5,6 +5,7 @@ import numpy as np
 import os
 from menu import runMenu
 from plyer import notification
+from notify import pushbullet_notify
 
 with open(os.path.join("settings", "data.txt")) as f:
     lines = f.readlines()
@@ -15,6 +16,8 @@ user_radius = 5
 refresh_rate = 10
 # bonus option to console when package from non-favourite store is available
 notify_all = False
+# push notifications to phone using pushbullet
+notify_phone = True
 
 #[:-1] to not read in new-line character
 user_access_token = lines[0][:-1]
@@ -66,6 +69,8 @@ while True:
         if available_items != 0:
             now = datetime.now()
             if shop in favourite_stores:
+                if notify_phone:
+                    pushbullet_notify("ToGoodToGo", f"There is a package waiting at {shop}")
                 print(f"There are {available_items} packages at {shop} ({now}), be quick!")
                 notification.notify(
                     title = "You've got a package to save!",
