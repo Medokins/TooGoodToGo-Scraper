@@ -9,7 +9,7 @@
 TooGoodToGo scrapper that notifies user when there is a package avaiable at given store.
 
 ## Technologies
-Tgtg library for acquiring data, pygame for simple menu.
+Tgtg library for acquiring data, pygame for simple menu.</br>
 Optional: [pushbullet aplication](https://www.pushbullet.com/) for phone notifications.
 
 ## Setup
