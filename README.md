@@ -20,4 +20,3 @@ After that you'll acquire acces token, refresh token and user id that you need t
 
 If you want to get phone notifications, install pushbullet aplication on your phone, create account and log into it on Your phone and PC.</br>
 Then, on the [pushbullet page](https://www.pushbullet.com/#settings) click "Create Access Token" button and paste the result into notify.py file.
-PS. You can also just paste those as a string in code, I'm using txt file to hide my credentials.
